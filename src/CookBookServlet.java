@@ -16,7 +16,6 @@ import grandma.cookbook.Recipe;
 /**
  * Servlet implementation class CookBookServlet
  */
-//@WebServlet("/CookBookServlet")
 @WebServlet(description = "Cook Book Servlet", urlPatterns = { "/index.jsp" })
 public class CookBookServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -50,10 +49,11 @@ public class CookBookServlet extends HttpServlet {
 
   private void listRecipe(HttpServletResponse response) throws IOException {
 
-    response.setContentType("application/json; charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.print(grandmaCookBook.toJSON());
-    out.close();
+    response.setContentType("application/json");
+    response.setCharacterEncoding("UTF-8");
+    PrintWriter responseWriter = response.getWriter();
+    responseWriter.print(grandmaCookBook.toJSON());
+    responseWriter.close();
 
   }
 
@@ -103,8 +103,8 @@ public class CookBookServlet extends HttpServlet {
     String des = request.getParameter("recipeDescription");
     Boolean valid = validate_input(name, des);
     if (valid) {
-      Recipe r = new Recipe(name, des);
-      grandmaCookBook.add(r);
+      Recipe recipe = new Recipe(name, des);
+      grandmaCookBook.add(recipe);
     }
     else {
       request.setAttribute("error", true);
@@ -114,19 +114,20 @@ public class CookBookServlet extends HttpServlet {
 
   private void deleteRecipe(HttpServletRequest request) {
     int id = Integer.parseInt(request.getParameter("id"));
-    Recipe r = grandmaCookBook.exists(id);
-    if (r != null)
-      grandmaCookBook.delete(r);
+    Recipe recipe = grandmaCookBook.exists(id);
+    if (recipe != null)
+      grandmaCookBook.delete(recipe);
     else
       request.setAttribute("delerror", true);
   }
 
   private Boolean validate_input(String name, String des) {
-    if (!name.isEmpty() && !des.isEmpty())
+    if (!name.isEmpty() && !des.isEmpty()) {
       return true;
-    else
+    }
+    else {
       return false;
-
+    }
   }
 
 }

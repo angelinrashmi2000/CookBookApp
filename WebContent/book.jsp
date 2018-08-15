@@ -25,46 +25,46 @@
 	%>
 	<%
 		if (request.getAttribute("listOfRecipe") != null) {
-		  List<Recipe> r =(List<Recipe>) request.getAttribute("listOfRecipe");
-	      for(int i=0;i<r.size();i++)
+		  List<Recipe> listOfRecipe =(List<Recipe>) request.getAttribute("listOfRecipe");
+	      for(int i=0;i<listOfRecipe.size();i++)
 	      {
 	     
 	%>
-	<form action="" method="post">
-		<% if (request.getAttribute("editmode") == null && request.getAttribute("id")== null) 
-			{
-		%>
-			<input type="text" name="recipeName" value="<%= r.get(i).name() %>" disabled/>
-			<input type="text" name="recipeDescription" value="<%= r.get(i).description() %>" disabled/>
-		<% 
-			} else { 
-				if( (int)request.getAttribute("id") == r.get(i).recipeId())
-				{
-	     %>
-					 <input type="text" name="recipeName" value="<%= r.get(i).name() %>"/> 
-					 <input type="text" name="recipeDescription" value="<%= r.get(i).description() %>"/>
-					 <input type="submit" name="ok" value="ok" />
-		<%
-				} else {
-	 	%>
-					 <input type="text" name="recipeName" value="<%= r.get(i).name() %>" disabled/>
-					 <input type="text" name="recipeDescription" value="<%= r.get(i).description() %>" disabled/>
-		 <%
-		 			}
-				}
-		%> 
-		<input type="submit" name="delete" value="Delete" />
-		<input type="submit" name="edit" value="Edit" />
-		<input id="id" name="id" type="hidden" value="<%= r.get(i).recipeId() %>" />
-		<%
-			if (request.getAttribute("editerror") != null && (int)request.getAttribute("id") == i)
-			{
-		 %>	  
-			<p style="color:red;"> Invalid Recipe Name or Description</p>
-		<% 	
-			}
-		%>
-	</form>
+				<form action="" method="post">
+					<% if (request.getAttribute("editmode") == null && request.getAttribute("id")== null) 
+						{
+					%>
+						<input type="text" name="recipeName" value="<%= listOfRecipe.get(i).getName() %>" disabled/>
+						<input type="text" name="recipeDescription" value="<%= listOfRecipe.get(i).getDescription() %>" disabled/>
+					<% 
+						} else { 
+							if( (int)request.getAttribute("id") == listOfRecipe.get(i).getRecipeId())
+							{
+				     %>
+								 <input type="text" name="recipeName" value="<%= listOfRecipe.get(i).getName() %>"/> 
+								 <input type="text" name="recipeDescription" value="<%= listOfRecipe.get(i).getDescription() %>"/>
+								 <input type="submit" name="ok" value="ok" />
+					<%
+							} else {
+				 	%>
+								 <input type="text" name="recipeName" value="<%= listOfRecipe.get(i).getName() %>" disabled/>
+								 <input type="text" name="recipeDescription" value="<%= listOfRecipe.get(i).getDescription() %>" disabled/>
+					 <%
+					 			}
+							}
+					%> 
+					<input type="submit" name="delete" value="Delete" />
+					<input type="submit" name="edit" value="Edit" />
+					<input id="id" name="id" type="hidden" value="<%= listOfRecipe.get(i).getRecipeId() %>" />
+					<%
+						if (request.getAttribute("editerror") != null && (int)request.getAttribute("id") == listOfRecipe.get(i).getRecipeId())
+						{
+					 %>	  
+						<p style="color:red;"> Invalid Recipe Name or Description</p>
+					<% 	
+						}
+					%>
+				</form>
 	<% 
 			}
 	    } else { 

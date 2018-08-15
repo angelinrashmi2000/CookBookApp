@@ -5,8 +5,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,8 +13,7 @@ import grandma.cookbook.Recipe;
 
 
 public class cookBookTest {
-  HttpServletRequest request;
-  CookBook           grandmaCookBook;
+  CookBook grandmaCookBook;
 
   @Before
   public void initialize() {
@@ -26,20 +23,20 @@ public class cookBookTest {
   @Test
   public void addRecipeToEmptyCookBook() {
     assertTrue(grandmaCookBook.listOfRecipe().isEmpty());
-    grandmaCookBook.add(new Recipe("r1", "d1"));
+    grandmaCookBook.add(new Recipe("recipe1", "description1"));
     assertEquals(String.valueOf(grandmaCookBook.listOfRecipe().size()), String.valueOf(1));
   }
 
   @Test
   public void persistRecipe() {
-    grandmaCookBook.add(new Recipe("r1", "d1"));
+    grandmaCookBook.add(new Recipe("recipe1", "description1"));
     assertNotNull("should exist", grandmaCookBook.exists(1));
     assertNull(grandmaCookBook.exists(10));
   }
 
   @Test
   public void deleteRecipe() {
-    Recipe r = new Recipe("r1", "d1");
+    Recipe r = new Recipe("recipe1", "description1");
     grandmaCookBook.add(r);
     grandmaCookBook.delete(r);
     assertTrue(grandmaCookBook.listOfRecipe().isEmpty());
@@ -48,18 +45,18 @@ public class cookBookTest {
 
   @Test
   public void deleteNotAvailableRecipe() {
-    Recipe r = new Recipe("r1", "d1");
+    Recipe r = new Recipe("recipe1", "description1");
     Boolean result = grandmaCookBook.delete(r);
     assertFalse(result);
   }
 
   @Test
   public void editRecipe() {
-    Recipe r = new Recipe("r1", "d1");
+    Recipe r = new Recipe("recipe1", "description1");
     grandmaCookBook.add(r);
-    grandmaCookBook.edit(r, "r2", "d2");
-    assertEquals(grandmaCookBook.exists(4).name(), "r2");
-    assertEquals(grandmaCookBook.exists(4).description(), "d2");
+    grandmaCookBook.edit(r, "recipe2", "description2");
+    assertEquals(grandmaCookBook.exists(4).getName(), "recipe2");
+    assertEquals(grandmaCookBook.exists(4).getDescription(), "description2");
   }
 
   @Test
@@ -69,7 +66,7 @@ public class cookBookTest {
 
   @Test
   public void notEmptyJson() {
-    grandmaCookBook.add(new Recipe("r1", "d1"));
+    grandmaCookBook.add(new Recipe("recipe1", "description1"));
     assertNotSame(grandmaCookBook.toJSON(), "[]");
   }
 }

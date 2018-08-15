@@ -21,15 +21,15 @@ public class Recipe {
     this.description = des;
   }
 
-  public String name() {
+  public String getName() {
     return this.name;
   }
 
-  public int recipeId() {
+  public int getRecipeId() {
     return this.recipeId;
   }
 
-  public String description() {
+  public String getDescription() {
     return this.description;
   }
 }

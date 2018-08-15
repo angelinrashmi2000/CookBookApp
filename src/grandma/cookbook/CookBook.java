@@ -14,7 +14,7 @@ public class CookBook {
   }
 
   public Boolean delete(Recipe recipe) {
-    if (exists(recipe.recipeId()) != null) {
+    if (exists(recipe.getRecipeId()) != null) {
       listOfRecipe.remove(recipe);
       return true;
     }
@@ -24,14 +24,14 @@ public class CookBook {
 
   public Recipe exists(int recipeId) {
     for (Recipe r : this.listOfRecipe) {
-      if (r.recipeId() == recipeId)
+      if (r.getRecipeId() == recipeId)
         return r;
     }
     return null;
   }
 
-  public void add(Recipe r) {
-    listOfRecipe.add(r);
+  public void add(Recipe recipe) {
+    listOfRecipe.add(recipe);
   }
 
   public void edit(Recipe recipe, String name, String des) {
